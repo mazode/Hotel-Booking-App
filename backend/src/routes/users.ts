@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
+import { check, validationResult } from "express-validator";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
-import { check, validationResult } from "express-validator";
 
 const router = express.Router();
 
@@ -11,10 +11,9 @@ router.post(
     check("firstName", "First Name is required").isString(),
     check("lastName", "Last Name is required").isString(),
     check("email", "Email is required").isEmail(),
-    check(
-      "password",
-      "Password length should be greater than 6 characters"
-    ).isLength({ min: 6 }),
+    check("password", "Password length must be greater than 6").isLength({
+      min: 6,
+    }),
   ],
   async (req: Request, res: Response): Promise<any> => {
     const errors = validationResult(req);
@@ -36,9 +35,7 @@ router.post(
       const token = jwt.sign(
         { userId: user.id },
         process.env.JWT_SECRET_KEY as string,
-        {
-          expiresIn: "1d",
-        }
+        { expiresIn: "1d" }
       );
 
       res.cookie("auth_token", token, {
@@ -49,7 +46,7 @@ router.post(
 
       return res.sendStatus(200);
     } catch (error) {
-      console.log(error);
+      console.log("Register Route Error:", error);
       res.status(500).send({ message: "Something went wrong" });
     }
   }
