@@ -3,15 +3,14 @@ import bcrypt from "bcryptjs";
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import User from "../models/user";
-import { userInfo } from "os";
 
 const router = express.Router();
 
 router.post(
   "/login",
   [
-    check("email", "Email is required").isEmail(),
-    check("password", "Password with 6 or more characters required").isLength({
+    check("email", "Email is required").isString(),
+    check("password", "Password length must be greater than 6").isLength({
       min: 6,
     }),
   ],
@@ -26,20 +25,18 @@ router.post(
     try {
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ message: "Invalid Credentials" });
+        return res.status(400).json({ message: "Invalid credentials" });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(400).json({ message: "Invalid Credentials" });
+        return res.status(400).json({ message: "Invalid credentials" });
       }
 
       const token = jwt.sign(
         { userId: user.id },
         process.env.JWT_SECRET_KEY as string,
-        {
-          expiresIn: "1d",
-        }
+        { expiresIn: "1d" }
       );
 
       res.cookie("auth_token", token, {
