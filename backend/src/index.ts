@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
 
 // Allowed domain through CORS
 const corsOptions = {
-  origin: "http://localhost:5173/",
+  origin: "http://localhost:5173",
 };
 
 const app = express();
