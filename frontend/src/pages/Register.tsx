@@ -13,8 +13,8 @@ export type RegisterFormData = {
 const Register = () => {
   const {
     register,
-    watch,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<RegisterFormData>();
 
@@ -33,7 +33,11 @@ const Register = () => {
   });
 
   return (
-    <form action="" className="flex flex-col gap-5" onSubmit={submitHandler}>
+    <form
+      action=""
+      className="flex flex-col gap-5 p-[10rem]"
+      onSubmit={submitHandler}
+    >
       <h2 className="text-3xl font-bold text-center">Create an Account</h2>
       <div className="flex flex-col md:flex-row gap-5">
         <label className="text-gray-700 text-sm font-bold flex-1">
