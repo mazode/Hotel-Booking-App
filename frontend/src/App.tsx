@@ -6,8 +6,7 @@ import {
 } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import SignIn from "./pages/Signin";
 
 const App = () => {
   return (
@@ -32,11 +31,17 @@ const App = () => {
         <Route
           path="/register"
           element={
-            <>
-              <Header />
+            <Layout>
               <Register />
-              <Footer />
-            </>
+            </Layout>
+          }
+        />
+        <Route
+          path="/sign-in"
+          element={
+            <Layout>
+              <SignIn />
+            </Layout>
           }
         />
         <Route path="*" element={<Navigate to="/" />} />
