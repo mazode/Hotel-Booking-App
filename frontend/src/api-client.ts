@@ -21,7 +21,7 @@ export const register = async (formData: RegisterFormData) => {
 };
 
 export const signIn = async (formData: SignInFormData) => {
-  const response = await fetch(`${API_BASE_URL}/api/users/login`, {
+  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -30,13 +30,13 @@ export const signIn = async (formData: SignInFormData) => {
     body: JSON.stringify(formData),
   });
 
-  const responseBody = await response.json();
+  const body = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseBody.message);
+    throw new Error(body.message);
   }
 
-  return responseBody;
+  return body;
 };
 
 export const validateToken = async () => {
@@ -52,9 +52,9 @@ export const validateToken = async () => {
 };
 
 export const signOut = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/users/logout`, {
-    method: "POST",
+  const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
     credentials: "include",
+    method: "POST",
   });
 
   if (!response.ok) {
