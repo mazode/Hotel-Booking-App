@@ -31,27 +31,27 @@ test("should allow the user to register", async ({ page }) => {
   await expect(page.getByText("Registration Success!")).toBeVisible();
 });
 
-// test("should allow the user to sign in", async ({ page }) => {
-//   await page.goto(UI_URL);
+test("should allow the user to sign in", async ({ page }) => {
+  await page.goto(UI_URL);
 
-//   // Test the register in nav button
-//   await page.getByRole("link", { name: "Sign In" }).click();
-//   // Test the Sign in heading is visible
-//   await expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
+  // Test the register in nav button
+  await page.getByRole("link", { name: "Sign In" }).click();
+  // Test the Sign in heading is visible
+  await expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
 
-//   // Test email, password input
-//   await page.locator("[name=email]").fill("1@1.com");
-//   await page.locator("[name=password]").fill("password123");
+  // Test email, password input
+  await page.locator("[name=email]").fill("1@1.com");
+  await page.locator("[name=password]").fill("password123");
 
-//   // Test the sign in form button
-//   await page.getByRole("button", { name: "Login" }).click();
+  // Test the sign in form button
+  await page.getByRole("button", { name: "Login" }).click();
 
-//   // Test the successful sign in toast message
-//   await expect(page.getByText("Login Success!")).toBeVisible();
+  // Test the successful sign in toast message
+  await expect(page.getByText("Login Success!")).toBeVisible();
 
-//   // Test the homepage nav links, and button after successful login
-//   await expect(page.getByRole("link", { name: "My Bookings" })).toBeVisible();
-//   await expect(page.getByRole("link", { name: "My Hotels" })).toBeVisible();
+  // Test the homepage nav links, and button after successful login
+  await expect(page.getByRole("link", { name: "My Bookings" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "My Hotels" })).toBeVisible();
 
-//   await expect(page.getByRole("button", { name: "Signout" })).toBeVisible();
-// });
+  await expect(page.getByRole("button", { name: "Signout" })).toBeVisible();
+});
