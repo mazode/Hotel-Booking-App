@@ -1,7 +1,11 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const UI_URL = "http://localhost:5173";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const UI_URL = "http://localhost:5173/";
 
 // Run the sign in test before each test
 test.beforeEach(async ({ page }) => {
@@ -25,13 +29,13 @@ test.beforeEach(async ({ page }) => {
 
 //
 test("should allow the user to add a hotel", async ({ page }) => {
-  await page.goto(`${UI_URL}/add-hotel`);
+  await page.goto(`${UI_URL}add-hotel`);
 
-  await page.locator("name=[name]").fill("Test Hotel");
-  await page.locator("name=[city]").fill("Riyadh");
-  await page.locator("name=[country]").fill("KSA");
-  await page.locator("name=[description]").fill("A dummy description here.");
-  await page.locator("name=[pricePerNight]").fill("100");
+  await page.locator('[name="name"]').fill("Test Hotel");
+  await page.locator('[name="city"]').fill("Riyadh");
+  await page.locator('[name="country"]').fill("KSA");
+  await page.locator('[name="description"]').fill("A dummy description here.");
+  await page.locator('[name="pricePerNight"]').fill("100");
 
   await page.selectOption('select[name="starRating"]', "3");
 
@@ -48,4 +52,7 @@ test("should allow the user to add a hotel", async ({ page }) => {
     path.join(__dirname, "files", "2.jpeg"),
     path.join(__dirname, "files", "3.jpeg"),
   ]);
+
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByText("Hotel Saved")).toBeVisible();
 });
