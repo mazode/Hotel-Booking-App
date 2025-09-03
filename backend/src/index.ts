@@ -29,15 +29,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-app.use(express.static(path.join(__dirname, "../../frontend/dist")));
-
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
 
-app.get("*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
-});
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
+// app.get("*", (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+// });
 
 app.listen(5000, () => {
   console.log("Server is running on PORT 5000");
